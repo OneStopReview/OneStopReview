@@ -1,4 +1,4 @@
-# OneStopReviews
+﻿# OneStopReviews
 Codepath Group Project Apr 2017
 
 ### Pitch
@@ -13,5 +13,3 @@ OneStopReviews aims to be *the app* for your review searching needs. It aggregat
 
 ### Optional user stories
 [ ] User can post images in their review
-
-
