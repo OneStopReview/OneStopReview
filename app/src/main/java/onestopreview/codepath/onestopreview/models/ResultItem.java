@@ -1,6 +1,5 @@
 package onestopreview.codepath.onestopreview.models;
 
-import java.net.URI;
 
 /**
  * Created by aaneja on 4/6/2017.
