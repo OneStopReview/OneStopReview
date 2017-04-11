@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.2.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -22,6 +22,21 @@ allprojects {
         jcenter()
         mavenCentral()
     }
+}
+
+ext {
+    compileSdkVersion = 25
+    buildToolsVersion = "25.0.2"
+
+    minSdkVersion = 19
+    targetSdkVersion = 25
+
+    androidSupport = 'com.android.support:support-v4:25.3.0'
+
+    parse = 'com.parse:parse-android:1.14.1'
+    facebookSDK = 'com.facebook.android:facebook-android-sdk:4.9.0'
+    parseFacebookUtils = 'com.parse:parsefacebookutils-v4-android:1.10.4@aar'
+    parseTwitterUtils = 'com.parse:parsetwitterutils-android:1.10.5'
 }
 
 task clean(type: Delete) {

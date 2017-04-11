@@ -2,4 +2,16 @@
     <string name="app_name">OneStopReview</string>
     <string name="facebook_app_id">1867264673486323</string>
     <string name="fb_login_protocol_scheme">fb1867264673486323</string>
+
+    <string name="parse_app_id">C8DD662D230F4906BA1DA65DF1BD1D57</string>
+
+    <string name="parse_server_url">https://onestopreview.herokuapp.com/parse/</string>
+
+    <string name="facebook_app_id">400769096976293</string>
+
+    <string name="parse_client_key"></string>
+
+    <string name="twitter_consumer_key">qoCEdcNSZzY4XQy68aOO6usII</string>
+
+    <string name="twitter_consumer_secret">Y89jVXBIpcaBBebbbog05foZyr3m29jPYj7iBr1X5H2i1KlwIn</string>
 </resources>
