@@ -1,4 +1,4 @@
-package onestopreview.codepath.onestopreview;
+package onestopreview.codepath.onestopreview.activities;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import onestopreview.codepath.onestopreview.R;
 import onestopreview.codepath.onestopreview.adapters.ResultItemAdapter;
 import onestopreview.codepath.onestopreview.databinding.ActivityLandingBinding;
 import onestopreview.codepath.onestopreview.models.ResultItem;
