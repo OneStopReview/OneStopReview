@@ -22,18 +22,22 @@ import org.json.JSONArray;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import onestopreview.codepath.onestopreview.R;
 import onestopreview.codepath.onestopreview.api.Facebook;
+import onestopreview.codepath.onestopreview.helpers.Utils;
+import onestopreview.codepath.onestopreview.interfaces.ResultsProcessor;
 import onestopreview.codepath.onestopreview.models.ResultItem;
 import onestopreview.codepath.onestopreview.models.SearchParams;
 import onestopreview.codepath.onestopreview.models.facebook.PlacesSearchResult;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements ResultsProcessor{
 
     private Facebook fbApi = new Facebook();
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+    private SearchParams searchParam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,34 +85,19 @@ public class MainActivity extends BaseActivity {
         location.setLatitude(47.610150);
         location.setLongitude(-122.201516);
 
-        final SearchParams searchParam = new SearchParams("pizza", location);
-        fbApi.SearchPlaces(searchParam, new GraphRequest.GraphJSONArrayCallback() {
-            @Override
-            public void onCompleted(JSONArray objects, GraphResponse response) {
-                Log.i("RESPONSE", response.toString());
-                Gson gson = new GsonBuilder().create();
-                PlacesSearchResult[] placesSearchResults = new PlacesSearchResult[0];
+        searchParam = new SearchParams("pizza", location, Utils.GetMeters(10), 100);
+        fbApi.DoSearch(searchParam,this);
+    }
 
-                JsonElement data = gson.fromJson(response.getRawResponse(), JsonElement.class);
-                placesSearchResults = gson.fromJson(data.getAsJsonObject().get("data"), PlacesSearchResult[].class);
+    @Override
+    public void ProcessResults(List<ResultItem> results) {
+        //!!!!IMPORTANT : Parceler only works with ArrayList for the top level collection types!!!
+        //Do not use : List<>, Arrays or any other type
+        //https://github.com/johncarl81/parceler/issues/18
 
-                Log.i("RESPONSE/count", String.valueOf(placesSearchResults.length));
-                Log.i("RESPONSE/imageLink", placesSearchResults[0].getPicture().getData().getUrl());
-
-                //!!!!IMPORTANT : Parceler only works with ArrayList for the top level collection types!!!
-                //Do not use : List<>, Arrays or any other type
-                //https://github.com/johncarl81/parceler/issues/18
-                ArrayList<ResultItem> results = new ArrayList<>();
-                for (PlacesSearchResult item :
-                        placesSearchResults) {
-                    results.add(item.CreateResultItem());
-                }
-
-                Intent i = new Intent(MainActivity.this, LandingActivity.class);
-                i.putExtra(LandingActivity.SEARCH_RESULTS, Parcels.wrap(results));
-                i.putExtra(LandingActivity.SEARCH_PARAMS, Parcels.wrap(searchParam));
-                startActivity(i);
-            }
-        });
+        Intent i = new Intent(MainActivity.this, LandingActivity.class);
+        i.putExtra(LandingActivity.SEARCH_RESULTS, Parcels.wrap(results));
+        i.putExtra(LandingActivity.SEARCH_PARAMS, Parcels.wrap(searchParam));
+        startActivity(i);
     }
 }

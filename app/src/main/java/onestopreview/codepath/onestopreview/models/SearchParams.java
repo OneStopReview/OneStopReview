@@ -8,10 +8,22 @@ import org.parceler.Parcel;
 public class SearchParams {
     private String searchTerm;
     private Location location;
+    private int searchRadiusMeters;
+    private int resultsToFetch;
 
-    public SearchParams(String searchTerm, Location location) {
+    public int getSearchRadiusMeters() {
+        return searchRadiusMeters;
+    }
+
+    public int getResultsToFetch() {
+        return resultsToFetch;
+    }
+
+    public SearchParams(String searchTerm, Location location, int searchRadiusMeters, int resultsToFetch) {
         this.searchTerm = searchTerm;
         this.location = location;
+        this.searchRadiusMeters = searchRadiusMeters;
+        this.resultsToFetch = resultsToFetch;
     }
 
     public String getSearchTerm() {
@@ -23,5 +35,21 @@ public class SearchParams {
     }
 
     public SearchParams() {
+    }
+
+    public void setSearchTerm(String searchTerm) {
+        this.searchTerm = searchTerm;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setSearchRadiusMeters(int searchRadiusMeters) {
+        this.searchRadiusMeters = searchRadiusMeters;
+    }
+
+    public void setResultsToFetch(int resultsToFetch) {
+        this.resultsToFetch = resultsToFetch;
     }
 }
