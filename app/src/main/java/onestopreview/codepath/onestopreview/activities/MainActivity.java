@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -24,6 +25,8 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.SmartLocation;
 import onestopreview.codepath.onestopreview.R;
 import onestopreview.codepath.onestopreview.api.Facebook;
 import onestopreview.codepath.onestopreview.helpers.Utils;
@@ -80,13 +83,16 @@ public class MainActivity extends BaseActivity implements ResultsProcessor{
     }
 
     public void btnTestApi_onclick(View view) {
+        Toast.makeText(this,"Fetching location..",Toast.LENGTH_SHORT).show();
+        SmartLocation.with(this).location().oneFix().start(new OnLocationUpdatedListener() {
+            @Override
+            public void onLocationUpdated(Location location) {
+                Toast.makeText(MainActivity.this,"Location locked! Searching..",Toast.LENGTH_SHORT).show();
+                searchParam = new SearchParams("pizza", location, Utils.GetMeters(10), 100);
+                fbApi.DoSearch(searchParam,MainActivity.this);
+            }
+        });
 
-        final Location location = new Location("");
-        location.setLatitude(47.610150);
-        location.setLongitude(-122.201516);
-
-        searchParam = new SearchParams("pizza", location, Utils.GetMeters(10), 100);
-        fbApi.DoSearch(searchParam,this);
     }
 
     @Override
