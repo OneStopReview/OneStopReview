@@ -3,6 +3,7 @@ package onestopreview.codepath.onestopreview.activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
@@ -69,12 +70,19 @@ public class BaseActivity extends AppCompatActivity {
         builder.setTitle(NETWORK_DISABLED);
         builder.setIcon(R.drawable.ic_alert);
         builder.setMessage(NO_INTERNET_MESSAGE);
-        builder.setPositiveButton(POSITIVE_BUTTON_TEXT, (dialog, which) -> {
-            Intent wifiIntent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
-            startActivityForResult(wifiIntent, WIFI_ENABLE_REQUEST);
-        }).setNegativeButton(NEGATIVE_BUTTON_TEXT, (dialog, which) -> {
+        builder.setPositiveButton(POSITIVE_BUTTON_TEXT, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent wifiIntent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+                        startActivityForResult(wifiIntent, WIFI_ENABLE_REQUEST);
+                    }
+                }).setNegativeButton(NEGATIVE_BUTTON_TEXT, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Do nothing
+            }
         });
-        internetDialog = builder.create();
+                internetDialog = builder.create();
         internetDialog.show();
     }
 

@@ -1,9 +1,8 @@
-package onestopreview.codepath.onestopreview;
+package onestopreview.codepath.onestopreview.activities;
 
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -24,12 +23,13 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import onestopreview.codepath.onestopreview.R;
 import onestopreview.codepath.onestopreview.api.Facebook;
 import onestopreview.codepath.onestopreview.models.ResultItem;
 import onestopreview.codepath.onestopreview.models.SearchParams;
 import onestopreview.codepath.onestopreview.models.facebook.PlacesSearchResult;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private Facebook fbApi = new Facebook();
     private LoginButton loginButton;
