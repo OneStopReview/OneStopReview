@@ -24,6 +24,7 @@ import onestopreview.codepath.onestopreview.interfaces.Searcher;
 import onestopreview.codepath.onestopreview.models.ResultItem;
 import onestopreview.codepath.onestopreview.models.SearchParams;
 
+//TODO: Maked this activity a Searchable as defined here: https://developer.android.com/guide/topics/search/search-dialog.html
 public class LandingActivity extends AppCompatActivity implements ResultsProcessor{
 
     public static final String SEARCH_RESULTS = "SEARCH_RESULTS";
@@ -46,6 +47,8 @@ public class LandingActivity extends AppCompatActivity implements ResultsProcess
         searchedParams = Parcels.unwrap(getIntent().getParcelableExtra(SEARCH_PARAMS));
         binding.rvSearchResults.setAdapter(new ResultItemAdapter(resultItems, searchedParams));
         binding.rvSearchResults.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+
+        setTitle(searchedParams.getSearchTerm());
     }
 
     //Based on connected networks hookup API sources
@@ -68,6 +71,7 @@ public class LandingActivity extends AppCompatActivity implements ResultsProcess
                         apiSources) {
                     searcher.DoSearch(searchedParams, LandingActivity.this);
                 }
+                setTitle(searchedParams.getSearchTerm());
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
                 searchView.clearFocus();
