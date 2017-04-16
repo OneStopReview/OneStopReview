@@ -2,13 +2,16 @@ package onestopreview.codepath.onestopreview.activities;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import org.parceler.Parcels;
 
@@ -19,6 +22,7 @@ import onestopreview.codepath.onestopreview.R;
 import onestopreview.codepath.onestopreview.adapters.ResultItemAdapter;
 import onestopreview.codepath.onestopreview.api.Facebook;
 import onestopreview.codepath.onestopreview.databinding.ActivityLandingBinding;
+import onestopreview.codepath.onestopreview.fragments.SortFragment;
 import onestopreview.codepath.onestopreview.interfaces.ResultsProcessor;
 import onestopreview.codepath.onestopreview.interfaces.Searcher;
 import onestopreview.codepath.onestopreview.models.ResultItem;
@@ -47,6 +51,9 @@ public class LandingActivity extends AppCompatActivity implements ResultsProcess
         searchedParams = Parcels.unwrap(getIntent().getParcelableExtra(SEARCH_PARAMS));
         binding.rvSearchResults.setAdapter(new ResultItemAdapter(resultItems, searchedParams));
         binding.rvSearchResults.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
+
+        /*MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.filter_drawer_view, binding.filterToolbar.getMenu());*/
 
         setTitle(searchedParams.getSearchTerm());
     }
@@ -93,5 +100,17 @@ public class LandingActivity extends AppCompatActivity implements ResultsProcess
         resultItems.addAll(results); //TODO:Re-implement in Sprint 3 to merge results reg the same location into a single result
         binding.rvSearchResults.scrollToPosition(0);
         binding.rvSearchResults.getAdapter().notifyDataSetChanged();
+    }
+
+    public void openSortNav(View view) {
+        // Begin the transaction
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        // Replace the contents of the container with the new fragment
+        ft.replace(R.id.frameLandingNav, new SortFragment());
+        // or ft.add(R.id.your_placeholder, new FooFragment());
+        // Complete the changes added above
+        ft.commit();
+
+        binding.drawerLanding.openDrawer(Gravity.END);
     }
 }

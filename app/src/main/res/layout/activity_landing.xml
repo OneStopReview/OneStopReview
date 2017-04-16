@@ -1,23 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLanding"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="onestopreview.codepath.onestopreview.activities.LandingActivity">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/filterToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#d3d3d3"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvSearchResults"
+        <!-- This LinearLayout represents the contents of the screen  -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/filterToolbar" />
-    </RelativeLayout>
+            tools:context="onestopreview.codepath.onestopreview.activities.LandingActivity">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/filterToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#d3d3d3"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                android:layout_alignBottom="@+id/filterButton" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvSearchResults"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/filterToolbar" />
+
+            <Button
+                android:id="@+id/filterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:text="Filter" />
+
+            <Button
+                android:id="@+id/sortButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="18dp"
+                android:layout_toStartOf="@+id/filterButton"
+                android:onClick="openSortNav"
+                android:text="Sort" />
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nvView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:background="@android:color/white" >
+
+            <FrameLayout
+                android:id="@+id/frameLandingNav"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+        </android.support.design.widget.NavigationView>
+    </android.support.v4.widget.DrawerLayout>
 </layout>
